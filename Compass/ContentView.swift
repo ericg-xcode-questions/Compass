@@ -8,7 +8,9 @@ struct ContentView : View {
     var body: some View {
         VStack {
   
-            Text( currentLocation.location )            
+            Text( currentLocation.location )
+            Divider()
+            Text( currentLocation.occasionalLocation )
         }
     }
 }

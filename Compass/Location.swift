@@ -39,9 +39,9 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate
         self.locationManager.startUpdatingLocation()
         
         occasionalLocationCancellable = self.objectWillChange
-                                                .debounce(for: .seconds( 2 ), scheduler: DispatchQueue.main)
-                                                .sink(receiveValue: { (location) in
-                                                    print( "Received: \(location)" )
+                                                .throttle( for: .seconds( 5 ), scheduler: DispatchQueue.main, latest: true )
+                                                .sink(receiveValue: { ( location ) in
+                                                    self.occasionalLocation = location
                                                 })
     }
     

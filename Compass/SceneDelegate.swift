@@ -1,11 +1,3 @@
-//
-//  SceneDelegate.swift
-//  Compass
-//
-//  Created by ProgrammingWithSwift on 2019/08/03.
-//  Copyright © 2019 ProgrammingWithSwift. All rights reserved.
-//
-
 import UIKit
 import SwiftUI
 

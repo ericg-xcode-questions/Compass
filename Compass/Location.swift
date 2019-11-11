@@ -1,11 +1,3 @@
-//
-//  Compass.swift
-//  Compass
-//
-//  Created by ProgrammingWithSwift on 2019/10/06.
-//  Copyright © 2019 ProgrammingWithSwift. All rights reserved.
-//
-
 import Foundation
 import Combine
 import CoreLocation
@@ -30,8 +22,6 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate
         
         self.locationManager.delegate = self
         self.setup()
-        
-        
     }
   
     private var occasionalLocationCancellable: Cancellable? {

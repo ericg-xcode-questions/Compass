@@ -1,13 +1,15 @@
 import Foundation
 import Combine
 import CoreLocation
+import os
 
 class Location: NSObject, ObservableObject, CLLocationManagerDelegate
 {
     var objectWillChange = PassthroughSubject<String, Never>()
     
     @Published var location: String = "" {
-        didSet {
+        didSet
+        {
             objectWillChange.send( location )
         }
     }
@@ -16,7 +18,8 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate
     
     private let locationManager: CLLocationManager
     
-    override init() {
+    override init()
+    {
         self.locationManager = CLLocationManager()
         super.init()
         
@@ -25,16 +28,19 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate
     }
   
     private var occasionalLocationCancellable: Cancellable? {
-        didSet {
+        didSet
+        {
             oldValue?.cancel()
         }
     }
     
-    deinit {
+    deinit
+    {
         occasionalLocationCancellable?.cancel()
     }
     
-    private func setup() {
+    private func setup()
+    {
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
         
@@ -45,10 +51,20 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate
                                                 })
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+    {
         let currentLocation = locations.last!
         let now             = Date().description
         
         self.location = "\(now): \(currentLocation.coordinate.latitude), \(currentLocation.coordinate.longitude)"
+        
+        print( "location updated" )
+    }
+    
+    
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        print( "location failed \(error)" )
     }
 }
